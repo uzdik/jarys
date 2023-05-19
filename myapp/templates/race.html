@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Жылдам жазу</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Мәтін/Code:</h1>
+    <div id="challenge">
+      <div id="challenge-text" style="min-height: 5em;"></div>
+      <textarea id="user-input" rows="20" cols="100" disabled></textarea>
+    </div>
+    <div id="controls">
+      <button id="start-button">Start</button>
+      <button id="classic-button">Classic</button>
+      <button id="python-button">Python</button>
+      <button id="terminal-button">Terminal</button>
+    </div>
+    <div id="statistics"></div>
+  </div>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>

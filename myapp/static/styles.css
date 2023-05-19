@@ -1,0 +1,97 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+h1 {
+  color: #333333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+#challenge-text {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 18px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#challenge-text.python-code {
+  font-family: monospace;
+  white-space: pre;
+}
+
+#challenge-text.terminal-window {
+  font-family: monospace;
+  background-color: black;
+  color: white;
+}
+
+#user-input {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#user-input.incorrect {
+  border-color: red;
+}
+
+#start-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #28a745;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#start-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.highlight {
+  background-color: #f5ff00;
+}

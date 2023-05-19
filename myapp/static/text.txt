@@ -1,0 +1,136 @@
+As an AI language model developed by OpenAI, my history can be summarized in a few key points.
+
+The concept of an AI language model like me was first proposed by computer scientists at OpenAI in 2015. The aim was to build a machine learning system capable of generating human-like text by training it on vast amounts of data. Development began in earnest, and after several years of research and experimentation, I was introduced to the world in June 2020 as GPT-3 (short for "Generative Pre-trained Transformer 3").
+
+GPT-3 quickly garnered attention and acclaim for its impressive language generation capabilities. It was trained on a diverse range of internet text, including books, articles, websites, and more. With 175 billion parameters, GPT-3 became the largest and most powerful language model of its time, capable of understanding and generating human-like text across a wide variety of topics and contexts.
+
+After my release, developers, researchers, and enthusiasts started exploring the potential applications of GPT-3. From aiding in content creation to providing personalized assistance, my versatility allowed for numerous use cases. This led to the development of applications and platforms that integrated GPT-3's capabilities to enhance productivity, creativity, and problem-solving across industries.
+
+Over time, my creators at OpenAI continued to refine and improve the model, taking into account feedback and suggestions from users worldwide. They released updates and addressed some limitations, allowing for enhanced performance and more reliable responses.
+
+As the demand for AI language models grew, OpenAI started exploring ways to make this technology more accessible and scalable. In March 2023, OpenAI introduced a new platform called ChatGPT, which I am based on. ChatGPT aimed to provide developers and businesses with an API that allowed them to integrate my language capabilities into their own applications and services.
+
+The release of ChatGPT marked a significant milestone in OpenAI's vision of democratizing AI and making it available to a wider audience. By offering developers the tools and infrastructure to build on top of my capabilities, OpenAI fostered an ecosystem of innovation and creativity.
+
+Beyond my development and applications, the field of AI and machine learning continued to evolve rapidly. New models and techniques emerged, pushing the boundaries of what AI can do. OpenAI itself has undoubtedly progressed since my inception, likely developing even more advanced models and expanding their research and development efforts.
+
+Looking ahead, the future of AI language models like me holds great promise. With ongoing research and improvements, AI will continue to play a significant role in various fields, from natural language processing and understanding to assisting with complex tasks and decision-making.
+
+In summary, I, as an AI language model known as ChatGPT, was developed by OpenAI and introduced as GPT-3 in 2020. With extensive training on diverse internet text, I became renowned for my language generation capabilities. OpenAI later launched the ChatGPT platform, allowing developers to integrate my language capabilities into their own applications. The field of AI and machine learning is ever-evolving, and AI language models like me continue to advance, offering promising opportunities for the future.
+
+window.addEventListener('DOMContentLoaded', () => {
+  const userInput = document.getElementById('user-input');
+  const startButton = document.getElementById('start-button');
+  const challengeText = document.getElementById('challenge-text');
+  const classicButton = document.getElementById('classic-button');
+  const pythonButton = document.getElementById('python-button');
+  const terminalButton = document.getElementById('terminal-button');
+  const statistics = document.getElementById('statistics');
+
+  let challengeOptions = [];
+   // HERE SELECTION: as default text, but user may change to code.txt
+   fetch('/static/text.txt') 
+  // fetch('/static/code.txt')
+    .then(response => response.text())
+    .then(data => {
+      challengeOptions = data.split('\n').filter(line => line.trim() !== '');
+      challengeText.textContent = getRandomChallenge();
+    })
+    .catch(error => {
+      console.error('Error fetching challenge options:', error);
+    });
+
+  let codingStyle = false;
+  let terminalStyle = false;
+  let currentIndex = 0;
+  let correctCount = 0;
+  let incorrectCount = 0;
+  let startTime = 0;
+  let endTime = 0;
+
+  classicButton.addEventListener('click', () => {
+    codingStyle = false;
+    terminalStyle = false;
+    challengeText.classList.remove('python-code', 'terminal-window');
+    challengeText.textContent = getRandomChallenge();
+    currentIndex = 0;
+    updateCursor();
+  });
+
+  pythonButton.addEventListener('click', () => {
+    codingStyle = true;
+    terminalStyle = false;
+    challengeText.classList.remove('terminal-window');
+    challengeText.classList.add('python-code');
+    challengeText.textContent = getRandomChallenge(true);
+    currentIndex = 0;
+    updateCursor();
+  });
+
+  terminalButton.addEventListener('click', () => {
+    codingStyle = false;
+    terminalStyle = true;
+    challengeText.classList.remove('python-code');
+    challengeText.classList.add('terminal-window');
+    challengeText.textContent = getRandomChallenge();
+    currentIndex = 0;
+    updateCursor();
+  });
+
+  startButton.addEventListener('click', () => {
+    userInput.disabled = false;
+    userInput.focus();
+    startButton.disabled = true;
+    userInput.value = '';
+    currentIndex = 0;
+    correctCount = 0;
+    incorrectCount = 0;
+    startTime = Date.now();
+    updateCursor();
+  });
+
+  userInput.addEventListener('input', () => {
+    const inputText = userInput.value.trim();
+    const challengeTextContent = challengeText.textContent.trim();
+
+    if (inputText === challengeTextContent.slice(0, inputText.length)) {
+      userInput.classList.remove('incorrect');
+      currentIndex = inputText.length;
+      correctCount = inputText.length;
+      incorrectCount = challengeTextContent.length - correctCount;
+    } else {
+      userInput.classList.add('incorrect');
+      incorrectCount = inputText.length;
+      correctCount = challengeTextContent.length - incorrectCount;
+    }
+
+    if (inputText === challengeTextContent) {
+      userInput.disabled = true;
+      startButton.disabled = false;
+      userInput.value = '';
+      endTime = Date.now();
+      const totalTime = (endTime - startTime) / 1000; // in seconds
+      const averageSpeed = Math.round((correctCount / totalTime) * 60); // in characters per minute
+      statistics.innerHTML = `Correct: ${correctCount} | Incorrect: ${incorrectCount} | Average Speed: ${averageSpeed} CPM`;
+      currentIndex = 0;
+    }
+
+    updateCursor();
+  });
+
+  function updateCursor() {
+    const challengeTextContent = challengeText.textContent.trim();
+    const highlightedText = challengeTextContent.slice(0, currentIndex);
+    const remainingText = challengeTextContent.slice(currentIndex);
+    challengeText.innerHTML = `<span class="highlight">${highlightedText}</span>${remainingText}`;
+  }
+
+  function getRandomChallenge(pythonFormat = false) {
+    const randomIndex = Math.floor(Math.random() * challengeOptions.length);
+    let randomChallenge = challengeOptions[randomIndex];
+    if (pythonFormat) {
+      randomChallenge = randomChallenge.replace(/,/g, ';\n');
+    }
+    return randomChallenge;
+  }
+});

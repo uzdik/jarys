@@ -1,0 +1,15 @@
+def count_letters(string):
+    letter_counts = {}
+    for letter in string:
+        if letter.isalpha():
+            letter = letter.lower()
+            if letter in letter_counts:
+                letter_counts[letter] += 1
+            else:
+                letter_counts[letter] = 1
+
+    for letter, count in letter_counts.items():
+        print(f"{letter}: {count}")
+
+input_string = "Hello, World!"
+count_letters(input_string)
